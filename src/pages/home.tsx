@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AnimatedCounter from '@/components/animated-counter';
+import HeartExplosion from '@/components/heart-explosion';
 import FallingPetals from '@/components/falling-petals';
 import MusicPlayer from '@/components/music-player';
 import { Sparkles, Stars, Heart } from 'lucide-react';
