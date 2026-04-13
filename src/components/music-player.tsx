@@ -28,5 +28,5 @@ export default function MusicPlayer() {
     };
   }, []);
 
-  return <audio ref={audioRef} src="/song.mp3" loop />;
+  return <audio ref={audioRef} src={`${import.meta.env.BASE_URL}song.mp3`} loop />;
 }
