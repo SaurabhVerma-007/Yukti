@@ -54,7 +54,7 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-sm sm:text-base text-primary/80 uppercase tracking-[0.3em] mb-6 block font-medium"
           >
-            A tribute to someone special
+            A Message to someone special
           </motion.span>
           
           <motion.div
