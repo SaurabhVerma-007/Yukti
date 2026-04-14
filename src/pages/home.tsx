@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedCounter from '@/components/animated-counter';
 import HeartExplosion from '@/components/heart-explosion';
 import FallingPetals from '@/components/falling-petals';
-import MusicPlayer from '@/components/music-player';
+import MusicPlayer, { type MusicPlayerHandle } from '@/components/music-player';
 import { Sparkles, Stars, Heart } from 'lucide-react';
 
 const reasons = [
@@ -30,15 +30,15 @@ const reasons = [
 ];
 
 export default function Home() {
+  const musicRef = useRef<MusicPlayerHandle>(null);
+
   return (
     <div className="min-h-[100dvh] w-full relative selection:bg-accent/30 selection:text-primary">
       <FallingPetals />
       
-      {/* Floating interactive element */}
-      <HeartExplosion />
+      <HeartExplosion onFirstClick={() => musicRef.current?.toggle()} />
 
-      {/* Music player */}
-      <MusicPlayer />
+      <MusicPlayer ref={musicRef} />
 
       {/* Hero Section */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-6 z-10 overflow-hidden">
@@ -162,7 +162,6 @@ export default function Home() {
           </motion.h2>
 
           <div className="relative border-l border-white/10 ml-4 sm:mx-auto sm:ml-auto sm:border-l-0 sm:border-t sm:border-white/10 sm:flex sm:justify-between pt-10 sm:pt-0">
-            {/* Event 1 */}
             <motion.div 
               initial={{ opacity: 0, x: -20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -176,10 +175,8 @@ export default function Home() {
               <p className="text-muted-foreground font-light text-sm sm:text-base">A chance encounter at night that became the highlight of my year.</p>
             </motion.div>
 
-            {/* Middle decorative line for desktop */}
             <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
 
-            {/* Event 2 */}
             <motion.div 
               initial={{ opacity: 0, x: 20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
