@@ -15,14 +15,13 @@ export default function MusicPlayer() {
       audio.play().catch(() => {});
     };
 
+    // ❌ Removed 'scroll' — browsers don't treat it as a trusted gesture
     window.addEventListener('click', start, { once: true });
-    window.addEventListener('scroll', start, { once: true });
     window.addEventListener('keydown', start, { once: true });
     window.addEventListener('touchstart', start, { once: true });
 
     return () => {
       window.removeEventListener('click', start);
-      window.removeEventListener('scroll', start);
       window.removeEventListener('keydown', start);
       window.removeEventListener('touchstart', start);
     };
