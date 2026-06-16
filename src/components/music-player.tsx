@@ -9,22 +9,23 @@ export type MusicPlayerHandle = {
 const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
-  const hasStartedRef = useRef(false);
+  const attemptRef = useRef(0);
 
   const play = useCallback(async () => {
     const audio = audioRef.current;
-    if (!audio || hasStartedRef.current) return;
+    if (!audio || playing) return;
     
-    hasStartedRef.current = true;
+    attemptRef.current += 1;
     
     try {
       await audio.play();
       setPlaying(true);
     } catch (err) {
-      hasStartedRef.current = false;
-      console.log('Playback blocked:', err);
+      // If blocked, don't mark as started so it can retry on next interaction
+      attemptRef.current -= 1;
+      console.log('Playback blocked, waiting for user gesture...');
     }
-  }, []);
+  }, [playing]);
 
   const pause = useCallback(() => {
     const audio = audioRef.current;
@@ -32,7 +33,6 @@ const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
     
     audio.pause();
     setPlaying(false);
-    hasStartedRef.current = false;
   }, []);
 
   const toggle = useCallback(() => {
@@ -49,15 +49,10 @@ const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
     }
   }, [playing]);
 
-  // Try autoplay on mount (usually blocked)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.volume = 0.5;
-    
-    audio.play()
-      .then(() => setPlaying(true))
-      .catch(() => {});
   }, []);
 
   useImperativeHandle(ref, () => ({ play, pause, toggle }));
