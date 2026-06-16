@@ -1,38 +1,66 @@
-import { useRef, forwardRef, useImperativeHandle, useState, useEffect } from 'react';
+import { useRef, forwardRef, useImperativeHandle, useState, useEffect, useCallback } from 'react';
 
-export type MusicPlayerHandle = { toggle: () => void };
+export type MusicPlayerHandle = { 
+  play: () => Promise<void>;
+  pause: () => void;
+  toggle: () => void;
+};
 
 const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const hasStartedRef = useRef(false);
 
-  useEffect(() => {
+  const play = useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio || hasStartedRef.current) return;
+    
+    hasStartedRef.current = true;
+    
+    try {
+      await audio.play();
+      setPlaying(true);
+    } catch (err) {
+      hasStartedRef.current = false;
+      console.log('Playback blocked:', err);
+    }
+  }, []);
+
+  const pause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    
+    audio.pause();
+    setPlaying(false);
+    hasStartedRef.current = false;
+  }, []);
+
+  const toggle = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.5;
+    if (playing) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      audio.play()
+        .then(() => setPlaying(true))
+        .catch(() => {});
+    }
+  }, [playing]);
 
+  // Try autoplay on mount (usually blocked)
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.5;
+    
     audio.play()
       .then(() => setPlaying(true))
-      .catch((err) => {
-        console.log('Autoplay blocked by browser', err);
-      });
+      .catch(() => {});
   }, []);
 
-  useImperativeHandle(ref, () => ({
-    toggle: () => {
-      const audio = audioRef.current;
-      if (!audio) return;
-
-      if (!playing) {
-        audio.play().catch(() => {});
-        setPlaying(true);
-      } else {
-        audio.pause();
-        setPlaying(false);
-      }
-    }
-  }));
+  useImperativeHandle(ref, () => ({ play, pause, toggle }));
 
   return (
     <audio
@@ -40,6 +68,7 @@ const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
       src={`${import.meta.env.BASE_URL}I've got my eye on you.mp3`}
       loop
       playsInline
+      preload="auto"
     />
   );
 });
