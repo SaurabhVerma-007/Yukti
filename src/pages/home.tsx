@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="min-h-[100dvh] w-full relative selection:bg-accent/30 selection:text-primary">
       <FallingPetals />
-      
+
       <HeartExplosion onFirstClick={() => musicRef.current?.toggle()} />
 
       <MusicPlayer ref={musicRef} />
@@ -48,7 +48,7 @@ export default function Home() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="text-center"
         >
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
@@ -56,10 +56,10 @@ export default function Home() {
           >
             A Message to someone special
           </motion.span>
-          
+
           <motion.div
-            animate={{ 
-              textShadow: ["0 0 20px rgba(232,62,140,0.2)", "0 0 40px rgba(232,62,140,0.5)", "0 0 20px rgba(232,62,140,0.2)"] 
+            animate={{
+              textShadow: ["0 0 20px rgba(232,62,140,0.2)", "0 0 40px rgba(232,62,140,0.5)", "0 0 20px rgba(232,62,140,0.2)"]
             }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
@@ -67,8 +67,8 @@ export default function Home() {
               Yukti.
             </h1>
           </motion.div>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 1.5 }}
@@ -79,14 +79,14 @@ export default function Home() {
         </motion.div>
 
         {/* Scroll indicator */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.5, duration: 1 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">Scroll down</span>
-          <motion.div 
+          <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent"
@@ -94,7 +94,98 @@ export default function Home() {
         </motion.div>
       </section>
 
-      
+      {/* Poem Section */}
+      <section className="relative py-24 px-6 z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="text-center mb-12">
+            <Heart className="w-6 h-6 text-primary mx-auto mb-6 opacity-80" />
+            <h2 className="text-3xl sm:text-5xl font-serif">
+              Once Again
+            </h2>
+          </div>
+
+          <div className="bg-glass rounded-[2rem] p-8 sm:p-12 border border-white/[0.05]">
+            <p
+              className="whitespace-pre-line text-lg sm:text-xl leading-loose italic text-foreground/90"
+              style={{ fontFamily: "Cormorant Garamond, serif" }}
+            >
+
+              {`Once again,
+
+I found myself standing
+at the edge of a door
+you could not bring yourself to open.
+
+Once again,
+I mistook patience for a key,
+thinking that if I stayed long enough,
+your fears would loosen their grip.
+
+I wanted to be a shelter
+for storms I could not see,
+to hold the weight of battles
+that were never mine to carry.
+
+And maybe my mistake
+was believing love could heal
+what only time and courage
+could teach the heart to release.
+
+You said it wasn't my fault.
+
+Yet I searched through every word,
+every silence,
+every moment between us,
+looking for the place where I went wrong.
+
+But some people leave
+not because they are unloved,
+but because they are still finding
+their way back to themselves.
+
+So I will not call this failure.
+
+Not yours.
+Not mine.
+
+You were a chapter
+written with trembling hands,
+and I was a visitor
+to rooms still haunted by yesterday.
+
+I wish I could have shown you
+that not every hand reaches to hurt,
+that not every goodbye is waiting ahead,
+that not every heart asks for more than you can give.
+
+But wishes are gentle things;
+they do not rewrite stories.
+
+So I'll carry the memory
+without resentment,
+the care without expectation,
+the love without possession.
+
+And if our paths never cross again,
+
+I hope one day
+you find a place where your heart
+no longer feels the need to run,
+
+and I hope one day
+mine learns that caring deeply
+was never the same as failing.`}
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
 
       {/* Time Since Section */}
       <section className="relative py-32 px-6 z-10 flex flex-col items-center justify-center">
@@ -115,7 +206,7 @@ export default function Home() {
         <AnimatedCounter />
       </section>
 
-      
+
 
       {/* Reasons Section */}
       <section className="relative py-32 px-6 z-10 max-w-6xl mx-auto">
@@ -156,7 +247,7 @@ export default function Home() {
       {/* Timeline Section */}
       <section className="relative py-32 px-6 z-10">
         <div className="max-w-2xl mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -166,7 +257,7 @@ export default function Home() {
           </motion.h2>
 
           <div className="relative border-l border-white/10 ml-4 sm:mx-auto sm:ml-auto sm:border-l-0 sm:border-t sm:border-white/10 sm:flex sm:justify-between pt-10 sm:pt-0">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true }}
@@ -181,7 +272,7 @@ export default function Home() {
 
             <div className="hidden sm:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true }}
@@ -199,7 +290,7 @@ export default function Home() {
 
       {/* Message Section */}
       <section className="relative py-32 px-6 z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -207,7 +298,7 @@ export default function Home() {
           className="max-w-3xl mx-auto bg-gradient-to-br from-white/[0.05] to-transparent p-8 sm:p-16 rounded-[2.5rem] border border-white/[0.05] backdrop-blur-xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-          
+
           <p className="text-lg sm:text-2xl leading-relaxed sm:leading-loose font-serif text-foreground/90 italic">
             "I didn't expect to find someone like you in a random conversation. But here you are — sweet, genuine, hardworking, and beautiful in every way. Every time we talk, I find myself smiling. Thank you for being you, Yukti."
           </p>
@@ -225,8 +316,8 @@ export default function Home() {
         >
           <Stars className="w-8 h-8 text-primary mx-auto mb-8 opacity-60" />
           <motion.div
-            animate={{ 
-              textShadow: ["0 0 30px rgba(244,208,111,0.3)", "0 0 60px rgba(244,208,111,0.6)", "0 0 30px rgba(244,208,111,0.3)"] 
+            animate={{
+              textShadow: ["0 0 30px rgba(244,208,111,0.3)", "0 0 60px rgba(244,208,111,0.6)", "0 0 30px rgba(244,208,111,0.3)"]
             }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
