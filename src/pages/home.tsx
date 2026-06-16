@@ -95,8 +95,6 @@ export default function Home() {
       </section>
 
       
-      {/* Time Since Section */}
-      <section className="relative py-32 px-6 z-10 flex flex-col items-center justify-center">
 
       {/* Time Since Section */}
       <section className="relative py-32 px-6 z-10 flex flex-col items-center justify-center">
@@ -116,6 +114,8 @@ export default function Home() {
 
         <AnimatedCounter />
       </section>
+
+      
 
       {/* Reasons Section */}
       <section className="relative py-32 px-6 z-10 max-w-6xl mx-auto">
