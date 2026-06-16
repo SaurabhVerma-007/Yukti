@@ -94,6 +94,99 @@ export default function Home() {
         </motion.div>
       </section>
 
+            </section>
+
+      {/* Poem Section */}
+      <section className="relative py-24 px-6 z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="text-center mb-12">
+            <Heart className="w-6 h-6 text-primary mx-auto mb-6 opacity-80" />
+            <h2 className="text-3xl sm:text-5xl font-serif">
+              Once Again
+            </h2>
+          </div>
+
+          <div className="bg-glass rounded-[2rem] p-8 sm:p-12 border border-white/[0.05]">
+            <p className="whitespace-pre-line text-lg sm:text-xl leading-loose font-serif italic text-foreground/90">
+{`Once again,
+
+I found myself standing
+at the edge of a door
+you could not bring yourself to open.
+
+Once again,
+I mistook patience for a key,
+thinking that if I stayed long enough,
+your fears would loosen their grip.
+
+I wanted to be a shelter
+for storms I could not see,
+to hold the weight of battles
+that were never mine to carry.
+
+And maybe my mistake
+was believing love could heal
+what only time and courage
+could teach the heart to release.
+
+You said it wasn't my fault.
+
+Yet I searched through every word,
+every silence,
+every moment between us,
+looking for the place where I went wrong.
+
+But some people leave
+not because they are unloved,
+but because they are still finding
+their way back to themselves.
+
+So I will not call this failure.
+
+Not yours.
+Not mine.
+
+You were a chapter
+written with trembling hands,
+and I was a visitor
+to rooms still haunted by yesterday.
+
+I wish I could have shown you
+that not every hand reaches to hurt,
+that not every goodbye is waiting ahead,
+that not every heart asks for more than you can give.
+
+But wishes are gentle things;
+they do not rewrite stories.
+
+So I'll carry the memory
+without resentment,
+the care without expectation,
+the love without possession.
+
+And if our paths never cross again,
+
+I hope one day
+you find a place where your heart
+no longer feels the need to run,
+
+and I hope one day
+mine learns that caring deeply
+was never the same as failing.`}
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Time Since Section */}
+      <section className="relative py-32 px-6 z-10 flex flex-col items-center justify-center">
+
       {/* Time Since Section */}
       <section className="relative py-32 px-6 z-10 flex flex-col items-center justify-center">
         <motion.div
