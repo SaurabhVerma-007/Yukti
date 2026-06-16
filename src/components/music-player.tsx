@@ -22,7 +22,7 @@ const MusicPlayer = forwardRef<MusicPlayerHandle>((_, ref) => {
     }
   }));
 
-  return <audio ref={audioRef} src={`${import.meta.env.BASE_URL}song.mp3`} loop playsInline />;
+  return <audio ref={audioRef} src={`${import.meta.env.BASE_URL}I've got my eye on you.mp3`} loop playsInline />;
 });
 
 export default MusicPlayer;
