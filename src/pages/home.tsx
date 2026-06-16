@@ -32,28 +32,33 @@ const reasons = [
 export default function Home() {
   const musicRef = useRef<MusicPlayerHandle>(null);
 
-   useEffect(() => {
+     useEffect(() => {
     let started = false;
 
-    const startMusicOnScroll = () => {
+    const startMusic = () => {
       if (started) return;
       started = true;
 
       musicRef.current?.play();
 
-      window.removeEventListener('scroll', startMusicOnScroll);
-      window.removeEventListener('touchmove', startMusicOnScroll);
-      window.removeEventListener('wheel', startMusicOnScroll);
+      // Remove all listeners once triggered
+      ['scroll', 'touchmove', 'wheel', 'click', 'touchstart', 'keydown'].forEach(evt => {
+        window.removeEventListener(evt, startMusic);
+      });
     };
 
-    window.addEventListener('scroll', startMusicOnScroll, { passive: true });
-    window.addEventListener('touchmove', startMusicOnScroll, { passive: true });
-    window.addEventListener('wheel', startMusicOnScroll, { passive: true });
+    // Scroll might work on some browsers, but click/touch/keyboard always counts as user gesture
+    window.addEventListener('scroll', startMusic, { passive: true });
+    window.addEventListener('touchmove', startMusic, { passive: true });
+    window.addEventListener('wheel', startMusic, { passive: true });
+    window.addEventListener('click', startMusic, { once: true });
+    window.addEventListener('touchstart', startMusic, { once: true });
+    window.addEventListener('keydown', startMusic, { once: true });
 
     return () => {
-      window.removeEventListener('scroll', startMusicOnScroll);
-      window.removeEventListener('touchmove', startMusicOnScroll);
-      window.removeEventListener('wheel', startMusicOnScroll);
+      ['scroll', 'touchmove', 'wheel', 'click', 'touchstart', 'keydown'].forEach(evt => {
+        window.removeEventListener(evt, startMusic);
+      });
     };
   }, []);
   
