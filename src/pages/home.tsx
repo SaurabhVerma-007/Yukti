@@ -5,6 +5,7 @@ import FallingPetals from '@/components/falling-petals';
 import MusicPlayer, { type MusicPlayerHandle } from '@/components/music-player';
 import { Sparkles, Stars, Heart } from 'lucide-react';
 
+
 const reasons = [
   {
     title: "Your Kindness",
@@ -31,26 +32,31 @@ const reasons = [
 export default function Home() {
   const musicRef = useRef<MusicPlayerHandle>(null);
 
-  useEffect(() => {
-  const startMusicOnScroll = () => {
-    musicRef.current?.toggle();
+   useEffect(() => {
+    let started = false;
 
-    window.removeEventListener('scroll', startMusicOnScroll);
-    window.removeEventListener('touchmove', startMusicOnScroll);
-    window.removeEventListener('wheel', startMusicOnScroll);
-  };
+    const startMusicOnScroll = () => {
+      if (started) return;
+      started = true;
 
-  window.addEventListener('scroll', startMusicOnScroll, { passive: true });
-  window.addEventListener('touchmove', startMusicOnScroll, { passive: true });
-  window.addEventListener('wheel', startMusicOnScroll, { passive: true });
+      musicRef.current?.play();
 
-  return () => {
-    window.removeEventListener('scroll', startMusicOnScroll);
-    window.removeEventListener('touchmove', startMusicOnScroll);
-    window.removeEventListener('wheel', startMusicOnScroll);
-  };
-}, []);
+      window.removeEventListener('scroll', startMusicOnScroll);
+      window.removeEventListener('touchmove', startMusicOnScroll);
+      window.removeEventListener('wheel', startMusicOnScroll);
+    };
 
+    window.addEventListener('scroll', startMusicOnScroll, { passive: true });
+    window.addEventListener('touchmove', startMusicOnScroll, { passive: true });
+    window.addEventListener('wheel', startMusicOnScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', startMusicOnScroll);
+      window.removeEventListener('touchmove', startMusicOnScroll);
+      window.removeEventListener('wheel', startMusicOnScroll);
+    };
+  }, []);
+  
   return (
     <div className="min-h-[100dvh] w-full relative selection:bg-accent/30 selection:text-primary">
       <FallingPetals />
