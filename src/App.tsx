@@ -1,9 +1,11 @@
+import { useRef } from 'react';
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import MusicPlayer, { MusicPlayerHandle } from "@/components/music-player";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,8 @@ function Router() {
 }
 
 function App() {
+  const musicRef = useRef<MusicPlayerHandle>(null);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -24,6 +28,7 @@ function App() {
           <Router />
         </WouterRouter>
         <Toaster />
+        <MusicPlayer ref={musicRef} />
       </TooltipProvider>
     </QueryClientProvider>
   );
