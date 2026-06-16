@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedCounter from '@/components/animated-counter';
 import FallingPetals from '@/components/falling-petals';
@@ -31,44 +31,15 @@ const reasons = [
 
 export default function Home() {
   const musicRef = useRef<MusicPlayerHandle>(null);
+  const [musicStarted, setMusicStarted] = useState(false);
 
-     useEffect(() => {
-    let started = false;
-
-    const startMusic = () => {
-      if (started) return;
-      started = true;
-
-      musicRef.current?.play();
-
-      // Remove all listeners once triggered
-      ['scroll', 'touchmove', 'wheel', 'click', 'touchstart', 'keydown'].forEach(evt => {
-        window.removeEventListener(evt, startMusic);
-      });
-    };
-
-    // Scroll might work on some browsers, but click/touch/keyboard always counts as user gesture
-    window.addEventListener('scroll', startMusic, { passive: true });
-    window.addEventListener('touchmove', startMusic, { passive: true });
-    window.addEventListener('wheel', startMusic, { passive: true });
-    window.addEventListener('click', startMusic, { once: true });
-    window.addEventListener('touchstart', startMusic, { once: true });
-    window.addEventListener('keydown', startMusic, { once: true });
-
-    return () => {
-      ['scroll', 'touchmove', 'wheel', 'click', 'touchstart', 'keydown'].forEach(evt => {
-        window.removeEventListener(evt, startMusic);
-      });
-    };
-  }, []);
-  
   return (
     <div className="min-h-[100dvh] w-full relative selection:bg-accent/30 selection:text-primary">
       <FallingPetals />
 
       <MusicPlayer ref={musicRef} />
 
-      {/* Hero Section */}
+            {/* Hero Section */}
       <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-6 z-10 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -104,6 +75,20 @@ export default function Home() {
           >
             "A beautiful surprise from a random conversation."
           </motion.p>
+
+          {/* Music Button */}
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.5, duration: 0.8 }}
+            onClick={() => {
+              musicRef.current?.play();
+              setMusicStarted(true);
+            }}
+            className="mt-10 px-6 py-3 rounded-full bg-primary/15 backdrop-blur-sm border border-primary/30 text-primary text-sm font-medium hover:bg-primary/25 hover:scale-105 transition-all shadow-lg"
+          >
+            🎵 Music for you
+          </motion.button>
         </motion.div>
 
         {/* Scroll indicator */}
