@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedCounter from '@/components/animated-counter';
-import HeartExplosion from '@/components/heart-explosion';
 import FallingPetals from '@/components/falling-petals';
 import MusicPlayer, { type MusicPlayerHandle } from '@/components/music-player';
 import { Sparkles, Stars, Heart } from 'lucide-react';
@@ -35,8 +34,6 @@ export default function Home() {
   return (
     <div className="min-h-[100dvh] w-full relative selection:bg-accent/30 selection:text-primary">
       <FallingPetals />
-
-      <HeartExplosion onFirstClick={() => musicRef.current?.toggle()} />
 
       <MusicPlayer ref={musicRef} />
 
